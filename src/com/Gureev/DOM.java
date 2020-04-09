@@ -60,7 +60,7 @@ public class DOM implements Analizator {
             String average = averageMark.getFirstChild().getNodeValue();
             System.out.println("\nAverage mark in doc: "+average);
             double calcMark = calculate(marks);
-            System.out.println("\nAverage calculate mark: "+calcMark);
+            System.out.println("\nCalculate average mark: "+calcMark);
             averageMark.getFirstChild().setNodeValue(String.valueOf(calcMark));
 
             //save

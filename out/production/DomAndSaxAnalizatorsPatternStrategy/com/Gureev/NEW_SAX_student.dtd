@@ -1,0 +1,7 @@
+
+
+<student lastname="Gureev">
+    <subject title="Rus" mark="5"/>
+    <subject title="Eng" mark="3"/>
+    <subject title="Math" mark="3"/>
+    <average>3.67</average>
