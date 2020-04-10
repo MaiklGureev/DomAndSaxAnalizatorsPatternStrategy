@@ -42,10 +42,10 @@ public class XMLHandler extends DefaultHandler {
         System.out.println("\nAverage mark in doc: "+student.getAverageMark());
         System.out.println("Calculate average  mark: "+calcMark);
 
-        if (lastElementName.equals("average")) {
+        if (lastElementName.equals("average")&averageMarkStart!=0) {
             char[] newCh;
             char[] averageCh = String.valueOf(calcMark).toCharArray(); //оценка
-            char[] averageWord = new String("</average>").toCharArray(); //
+            char[] averageWord = new String("</average>\n</student>").toCharArray(); //
             newCh = Arrays.copyOf(dtdFile, averageMarkStart+averageCh.length+averageWord.length); //скопировали начало с увеличенной длинной
             System.arraycopy(averageCh,0,newCh,averageMarkStart,averageCh.length); //скопировали оценку
             System.arraycopy(averageWord,0,newCh,averageMarkStart+averageCh.length,averageWord.length); //скопировали финальное слово
@@ -84,6 +84,10 @@ public class XMLHandler extends DefaultHandler {
         String information = new String(ch, start, length);
         information = information.replace("\n", "").trim();
 
+        if (lastElementName.equals("average") & length<=0) {
+            System.out.println(start);
+        }
+
         if (!information.isEmpty()) {
             if (lastElementName.equals("average")) {
                 int mark = Integer.parseInt(information);
@@ -99,11 +103,6 @@ public class XMLHandler extends DefaultHandler {
     @Override
     public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
         // Тут будет логика реакции на пустое пространство внутри элементов (пробелы, переносы строчек и так далее).
-        if (lastElementName.equals("average")) {
-            dtdFile = ch;
-            averageMarkLength = length;
-            averageMarkStart =start;
-        }
     }
 
     double calculate(int[] marks){
